@@ -1,0 +1,61 @@
+services:
+
+  postgres:
+    image: pgduckdb/pgduckdb:18-v1.1.1
+    ports:
+      - "5432:5432"
+    environment:
+      LANG: "C.UTF-8"
+      POSTGRES_USER: postgres
+      #POSTGRES_PASSWORD: abcd1234
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - database1:/var/lib/postgresql
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
+    restart: no
+
+  valkey:
+    image: valkey/valkey:7.2.11-alpine3.23
+    ports:
+      - "6379:6379"
+    volumes:
+      - valkey1:/data
+    restart: no
+
+  redash_server:
+    image: &redash_image redash/redash:25.8.0
+    command: server
+    depends_on:
+      - postgres
+      - valkey
+    ports:
+      - "5000:5000"
+    environment: &redash_env
+      REDASH_LOG_LEVEL: "INFO"
+      REDASH_REDIS_URL: "redis://valkey:6379/1"
+      REDASH_DATABASE_URL: "postgresql://postgres@postgres/postgres?sslmode=disable"
+      REDASH_COOKIE_SECRET: "some-random-secret"
+    restart: no
+
+  redash_scheduler:
+    image: *redash_image
+    command: scheduler
+    depends_on:
+      - redash_server
+    environment:
+      <<: *redash_env
+    restart: no
+
+  redash_worker:
+    image: *redash_image
+    command: worker
+    depends_on:
+      - redash_server
+    environment:
+      <<: *redash_env
+    restart: no
+
+volumes:
+  database1:
+  valkey1:
