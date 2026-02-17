@@ -73,6 +73,8 @@ man ページはない。
 
 ## dkron
 
+TODO: 調査
+
 ## cronicle
 
 AIモードによる説明
@@ -84,3 +86,23 @@ AIモードによる説明
 >     *    GUIベース: 高機能なWeb UIを備えており、ブラウザからジョブの監視や設定、ログの閲覧が可能です。
 >     *    分散実行: マスターサーバーが複数のワーカーサーバー（実行ノード）にジョブを割り振る「分散アーキテクチャ」を採用しています。
 >     *    高機能スケジューリング: cron形式の定期実行はもちろん、複雑な依存関係（ジョブAが終わったらBを実行）やエラー通知機能が充実しています。
+
+## Redash
+
+[pg_duckdb]:https://github.com/duckdb/pg_duckdb/
+
+BIツールのRedashを使うことを思いついた。
+[duckdb/pg\_duckdb][pg_duckdb] を使えばPostgreSQLとDuckDBを繋げるので、それならば Redash が使える。
+実際やってみて動いたのだが、もうちょっと調べたら Oct-2025 に Redash 自体が DuckDB に対応していた。
+開発版のみ。
+
+[pg\_duckdb+redash/](./pg_duckdb+redash/) で docker compose で利用してみた。
+
+Redash は以下の構成
+
+-   Redash
+    -   Webサーバー
+    -   ワーカー (実際のSQLを実行する)
+    -   スケジューラー (cron相当)
+-   Database (PostgreSQL)
+-   Redis (今回は Valkey を利用)
