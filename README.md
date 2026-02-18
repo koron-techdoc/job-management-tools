@@ -106,3 +106,18 @@ Redash は以下の構成
     -   スケジューラー (cron相当)
 -   Database (PostgreSQL)
 -   Redis (今回は Valkey を利用)
+
+# DuckDBのバージョンは?
+
+pg\_duckdb にせよ Redash にせよ、使われている DuckDB のバージョンを気にする必要がある。
+
+
+- pg\_duckdb - v1.4.4
+- Redash (25.12.0-dev) - v1.3.2
+- Redash (26.02.0-dev) - v1.3.2
+
+Redashのほうを引き上げる方法はあるかしら?
+
+以下で 1.3.2 に pin されてるので、上げて docker image を作り直す必要があり、ちょっとメンドイ。
+<https://github.com/getredash/redash/blob/549d595a8ee5f023faa86426a4090aab885e2f66/pyproject.toml#L108>
+

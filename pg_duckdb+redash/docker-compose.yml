@@ -24,7 +24,7 @@ services:
     restart: no
 
   redash_server:
-    image: &redash_image redash/preview:25.12.0-dev
+    image: &redash_image redash/preview:26.02.0-dev
     command: server
     depends_on:
       - postgres
