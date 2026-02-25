@@ -219,3 +219,5 @@ SYSLOGで対応できない範囲、フォーマット等を変えるのは、
 
 -   <https://duckdb.org/docs/stable/operations_manual/duckdb_docker>
 -	<https://hub.docker.com/r/duckdb/duckdb>
+
+サンプル: [docker-compose.yml](./docker-compose.yml)

@@ -1,0 +1,11 @@
+services:
+
+  duckdb_server:
+    image: duckdb/duckdb:1.4.4
+    ports:
+      - "9999:9999"
+    environment:
+      DUCKDB_HTTPSERVER_DEBUG: 1
+      DUCKDB_HTTPSERVER_FOREGROUND: 1
+    command: duckdb -cmd "INSTALL httpserver FROM community; LOAD httpserver; SELECT httpserve_start('0.0.0.0', '9999', '');" 
+    restart: no
