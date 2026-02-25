@@ -203,6 +203,10 @@ SYSLOGで対応できない範囲、フォーマット等を変えるのは、
 -   user agent
 -   forwarded for
 
+## その他
+
+-   Core Extension に UI があった <https://duckdb.org/docs/stable/core_extensions/ui>
+
 ## まとめ
 
 -   テーブル残存やファイル操作など、環境汚染をどうするか?
@@ -212,3 +216,6 @@ SYSLOGで対応できない範囲、フォーマット等を変えるのは、
 
 コンテナを用いて、定期的に再起動が良さそう。
 `DUCKDB_HTTPSERVER_DEBUG=1` でログは標準出力になる。
+
+-   <https://duckdb.org/docs/stable/operations_manual/duckdb_docker>
+-	<https://hub.docker.com/r/duckdb/duckdb>
